@@ -92,7 +92,7 @@ for each_device in device_list:
     current_time = datetime.datetime.now()
     timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
     file_name = f'{mktname}_{timestamp}.rsc'
-    backup_path = os.path.join(folder_name, file_name)
+    backup_path = os.path.join('backups', folder_name, file_name)
 
     with open(backup_path, 'w') as file:
         file.write(exportconfig)
