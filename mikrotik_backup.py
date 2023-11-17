@@ -7,8 +7,6 @@ import termcolor
 from netmiko import ConnectHandler
 from termcolor import colored
 
-#print colored('hello', 'red'), colored('world', 'green')
-
 addr_list = 'addresses.txt'  # Replace with your file path
 
 while True:
