@@ -13,6 +13,9 @@ Script will use one pair of credentials for getting access to all devices from l
 
 Just login/password authentication now supported. 
 
+## Known issues
+Windows is supported with monkey patch (reason: https://github.com/paramiko/paramiko/pull/2130)
+
 Warning! 
 It's don't working with 6.49.7 and possibly on some others, don't know why (disconnect after several output strings in the file) 
 Need to check it before use! 
