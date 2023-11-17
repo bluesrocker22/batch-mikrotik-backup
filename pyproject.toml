@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "batch-mikrotik-backup"
+version = "0.1.0"
+description = ""
+authors = ["BluesRocker <bluesrocker@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+netmiko = "^4.2.0"
+termcolor = "^2.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
