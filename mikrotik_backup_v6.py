@@ -46,10 +46,10 @@ for device_ip in my_devices:
     'port': '22',
     'global_cmd_verify': True,
     'global_delay_factor': 4,
+  #  'global_read_timeout': 800,
   #  'conn_timeout': 1000,
   #  'session_timeout': 1000,
     'fast_cli': False,
-    #'read_timeout_override': 10000,
     'username': username_full,
     "password": passwd, # Log in password from getpass
     "secret": passwd # Enable password from getpass
@@ -57,12 +57,12 @@ for device_ip in my_devices:
   device_list.append(device)
 for each_device in device_list:
   sshCli = ConnectHandler(**each_device)
-  getname = sshCli.send_command("/system identity print")
+  getname = sshCli.send_command("/system identity print", read_timeout=500.0)
   search_phrase = 'name: '
   mktname = getname.split(search_phrase, 1)[-1]  # Split the string by 'name: ' and get the part after it
   print(mktname)
   exportcommand = "/export"
-  exportconfig = sshCli.send_command(exportcommand, cmd_verify=True)
+  exportconfig = sshCli.send_command(exportcommand, read_timeout=500.0)
   time.sleep(5)
   print(exportconfig),
   current_time = datetime.datetime.now()
