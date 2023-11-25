@@ -8,7 +8,7 @@ from paramiko.proxy import ProxyCommand
 from termcolor import colored
 
 addr_list = 'addresses.txt'  # Replace with your file path
-
+folder_main = 'backups' #main folder for backups
 
 def monkey_patch_paramiko():
     """Win support
@@ -28,19 +28,20 @@ while True:
         break
 
 passwd = getpass.getpass('Please enter the password: ')
-folder_name = input('Please enter the folder name (or press Enter to use "backups" folder): ')
+sshport = input('Please enter ssh port for connections or press Enter to use default port (22): ')
+folder_name = input('Please enter the folder name (will be created in the backups folder): ') 
 
-if not folder_name:
-    folder_name = 'backups'
+if not sshport:
+    sshport = '22'
 
 # process is starting here
 monkey_patch_paramiko()
 
-if not os.path.exists(folder_name):
-    os.makedirs(folder_name)
-    print(f'Folder "{folder_name}" created successfully.')
+if not os.path.exists(os.path.join(folder_main, folder_name)):
+    os.makedirs(os.path.join(folder_main, folder_name))
+    print(f'Folder "{os.path.join(folder_main, folder_name)}" created successfully.')
 else:
-    print(f'Folder "{folder_name}" already exists.')
+    print(f'Folder "{os.path.join(folder_main, folder_name)}" already exists.')
 
 result_list = []
 
@@ -56,7 +57,7 @@ for device_ip in my_devices:
     device = {
         'device_type': 'mikrotik_routeros',
         'host': device_ip,
-        'port': '22',
+        'port': sshport,
         'username': f'{username}+ct',
         'password': passwd,  # Log in password from getpass
         'secret': passwd,  # Enable password from getpass
@@ -92,7 +93,7 @@ for each_device in device_list:
     current_time = datetime.datetime.now()
     timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
     file_name = f'{mktname}_{timestamp}.rsc'
-    backup_path = os.path.join('backups', folder_name, file_name)
+    backup_path = os.path.join(folder_main, folder_name, file_name)
 
     with open(backup_path, 'w') as file:
         file.write(exportconfig)
